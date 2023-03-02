@@ -81,15 +81,24 @@ if a < b: # Si "a" es menor que "b" pintame "b"
     print(b) # No lo pinta porque el resultado booleanos no es "True"
 
 # En el siguiente caso la expresión "if" sin cumple por lo que se acaba ejecutando
-a = 93
-b = 27
-if a >= b:
-    print(a)
+c = 93
+d = 27
+if c >= d:
+    print(c)
 
 # Siempre importante las sangrias: En este ejemplo, la salida es 44 ya que la expresión de prueba es False y la instrucción print(b) no tiene sangría en el mismo nivel que la instrucción if.
 
-a = 24
-b = 44
-if a <= 0:
-    print(a)
-print(b)
+e = 24
+f = 44
+if e <= 0:
+    print(e)
+print(f)
+
+#Añadimos "else" para que nos imprima las acciones "false"
+
+g = 93
+h = 27
+if g >= h:
+    print(g)
+else:
+    print(h)
