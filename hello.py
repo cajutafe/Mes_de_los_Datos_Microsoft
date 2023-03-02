@@ -50,3 +50,41 @@ print(date.today())
 parsecs = 11
 lightyears = parsecs * 3.26
 print(str(parsecs) + " parsecs is " + str(lightyears) + " lightyears")
+
+# ----------------------------------------------------------------------
+# Argumentos de la línea de comandos
+# ¿Cómo se capturan estos comandos desde la perspectiva de la codificación? Mediante el módulo sys, puede recuperar los argumentos de la línea de comandos y usarlos en el programa. Observe el código siguiente:
+
+# import sys
+
+# print(sys.argv)
+# print(sys.argv[0]) # program name
+# print(sys.argv[1]) # first arg
+
+# sys.argv es una matriz o estructura de datos que contiene muchos elementos. La primera posición, que se indica como 0 en la matriz, contiene el nombre del programa. La segunda posición, 1, contiene el primer argumento.
+
+
+
+# Entrada de usuario
+# Otra manera de pasar datos al programa es hacer que el usuario escriba los datos. Puede codificarlo para que el programa indique al usuario que escriba información. Guarde los datos especificados en el programa y, a continuación, trabaje con ellos.
+
+# Para capturar información del usuario, use la función input(). Este es un ejemplo:
+
+print("Welcome to the greeter program")
+name = input("Enter your name: ")
+print("Greetings " + name)
+
+
+
+# Trabajo con números
+# La función input() almacena un resultado como una cadena, por lo que es posible que el código siguiente no haga lo que quiera:
+
+print("calculator program with chain")
+first_number = input("first number: ")
+second_number = input("second number: ")
+print(first_number + second_number)
+
+# La explicación es que first_number y second_number son cadenas. Para que el cálculo funcione correctamente, debe cambiar esas cadenas a números mediante la función int(). Al modificar la última línea del programa para usar int(), puede resolver el problema:
+
+print(int(first_number) + int(second_number)) #Aquí SÍ suma
+
