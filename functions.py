@@ -66,3 +66,112 @@ print(round(total_days))
 # Pero un patrón útil es pasar funciones a otras funciones en lugar de asignar el valor devuelto:
 
 print(round(days_to_complete(238855, 75)))
+
+
+
+# Uso de argumentos de palabra clave en Python
+# Los argumentos opcionales requieren un valor predeterminado asignado a ellos. Estos argumentos con nombre se denominan argumentos de palabra clave. Los valores del argumento de palabra clave deben definirse en las propias funciones. Cuando se llama a una función definida con argumentos de palabra clave, no es necesario usarlos en absoluto.
+
+# La misión Apolo 11 tardó unas 51 horas en llegar a la Luna. Vamos a crear una función que devuelva la hora estimada de llegada usando el mismo valor que la misión Apolo 11 como valor predeterminado:
+
+from datetime import timedelta, datetime
+
+def arrival_time(hours=51):
+    now = datetime.now()
+    arrival = now + timedelta(hours=hours)
+    return arrival.strftime("Arrival: %A %H:%M")
+
+# La función usa el módulo datetime para definir la hora actual. Usa timedelta para permitir la operación de suma que da como resultado un objeto de hora nuevo. Después de calcular ese resultado, devuelve la estimación arrival con formato de cadena. Intente llamarla sin ningún argumento:
+
+print(arrival_time()) # Arrival: Wednesday 13:30
+
+# Aunque la función define un argumento de palabra clave, no permite pasar uno cuando se llama a una función. En este caso, la variable hours tiene como valor predeterminado 51. Para comprobar que la fecha actual es correcta, use 0 como valor para hours:
+
+print(arrival_time(hours=0)) #Devuelve la hora actual Arrival: Monday 10:31
+
+# Combinación de argumentos y argumentos de palabra clave
+# A veces, una función necesita una combinación de argumentos de palabra clave y argumentos. En Python, esta combinación sigue un orden específico. Los argumentos siempre se declaran primero, seguidos de argumentos de palabra clave.
+
+# Actualice la función arrival_time() para que tome un argumento necesario, que es el nombre del destino:
+
+from datetime import timedelta, datetime
+
+def arrival_time(destination, hours=51):
+    now = datetime.now()
+    arrival = now + timedelta(hours=hours)
+    return arrival.strftime(f"{destination} Arrival: %A %H:%M")
+
+# Dado que ha agregado un argumento necesario, ya no es posible llamar a la función sin ningún argumento:
+
+# print(arrival_time())
+# TypeError: arrival_time() missing 1 required positional argument: 'destination'
+
+# Use "Moon" como valor para destination a fin de evitar el error:
+
+print(arrival_time("Moon")) # Moon Arrival: Wednesday 13:39
+
+# También puede pasar más de dos valores, pero debe separarlos con una coma. Se tarda aproximadamente 8 minutos (0,13 horas) en entrar en órbita, así que utilice eso como argumento:
+
+print(arrival_time("Orbit", hours=0.13)) # Orbit Arrival: Monday 10:49
+
+
+
+
+# Uso de argumentos de variable en Python
+# En Python, puede usar cualquier número de argumentos de palabra clave y argumentos sin necesidad de declarar cada uno de ellos. Esta capacidad es útil cuando una función puede obtener un número desconocido de entradas.
+
+# Argumentos de variable
+# Los argumentos en las funciones son necesarios. Pero cuando se usan argumentos de variable, la función permite pasar cualquier número de argumentos (incluido 0). La sintaxis para usar argumentos de variable es agregar un asterisco único como prefijo (*) antes del nombre del argumento.
+
+# La función siguiente imprime los argumentos recibidos:
+
+def variable_length(*args):
+    print(args)
+
+# En este caso, *args indica a la función que acepte cualquier número de argumentos (incluido 0). En la función, args ahora está disponible como la variable que contiene todos los argumentos como una tupla. Pruebe la función pasando cualquier número o tipo de argumentos:
+
+print(variable_length()) # ()
+print(variable_length("one", "two")) # ('one', 'two')
+print(variable_length(None)) # (None, )
+
+# Como puede ver, no hay ninguna restricción en el número o tipo de argumentos que se pasan.
+
+# Un cohete realiza varios pasos antes de un lanzamiento. En función de las tareas o retrasos, estos pasos pueden tardar más de lo previsto. Vamos a crear una función de longitud variable que pueda calcular cuántos minutos quedan hasta el inicio, dado el tiempo que va a tardar cada paso:
+
+def sequence_time(*args):
+    total_minutes = sum(args)
+    if total_minutes < 60:
+        return f"Total time to launch is {total_minutes} minutes"
+    else:
+        return f"Total time to launch is {total_minutes/60} hours"
+    
+# Pruebe la función pasando cualquier número de minutos:
+
+print(sequence_time(4, 14, 18)) # Total time to launch is 36 minutes
+print(sequence_time(4, 14, 48)) # Total time to launch is 1.1 hours
+
+# Argumentos de palabra clave variable
+# Para que una función acepte cualquier número de argumentos de palabra clave, debe usar una sintaxis similar. En este caso, se requiere un asterisco doble:
+
+def variable_length(**kwargs):
+    print(kwargs)
+
+# Pruebe la función de ejemplo, que imprime los nombres y valores pasados como kwargs:
+
+print(variable_length(tanks=1, day="Wednesday", pilots=3)) # {'tanks': 1, 'day': 'Wednesday', 'pilots': 3}
+
+
+# En esta función, vamos a usar argumentos de palabra clave variable para notificar los astronautas asignados a la misión. Dado que esta función permite cualquier número de argumentos de palabra clave, se puede reutilizar independientemente del número de astronautas asignados:
+
+def crew_members(**kwargs):
+    print(f"{len(kwargs)} astronauts assigned for this mission:")
+    for title, name in kwargs.items():
+        print(f"{title}: {name}")
+
+# Pruébalo con la tripulación del Apolo 11:
+
+print(crew_members(captain="Neil Armstrong", pilot="Buzz Aldrin", command_pilot="Michael Collins"))
+# 3 astronauts assigned for this mission:
+# captain: Neil Armstrong
+# pilot: Buzz Aldrin
+# command_pilot: Michael Collins
