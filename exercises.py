@@ -416,3 +416,31 @@ def generate_report(main_tank, external_tank, hydrogen_tank):
 # Hydrogen tank: 75
 
 generate_report(80, 70, 75)
+
+
+
+# ----------------------------------------------------------------------
+
+
+# Exercise: Work with keyword arguments in functions
+# In the prior exercise you created a report for a ship with three fuel tanks. What happens if the ship has multiple tanks? Keyword arguments can be a perfect solution for this type of a situation. With keyword arguments a caller can provide multiple values which your code can interact with.
+
+## Create an updated fuel report function
+
+# Create a new function named `fuel_report`. The function will accept a keyword arguments parameter named `fuel_tanks`. Add the code to loop through the entries provided to generate the following output, where `name` is the name of the keyword argument and `value` is the value:
+
+# name: value
+# name: value
+
+def fuel_report(**fuel_tanks):
+    for name, value in fuel_tanks.items():
+        print(f'{name}: {value}')
+
+# Call the function
+# With the function created, it's time to call it! Pass in the following values for the keyword arguments:
+
+# main = 50
+# external = 100
+# emergency = 60
+
+(fuel_report(main=50, external=100, emergency=60))
